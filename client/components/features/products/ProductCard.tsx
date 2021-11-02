@@ -1,9 +1,9 @@
 import React from 'react'
 import { Product } from '../../models/product'
-import ListItem from '@mui/material/ListItem';
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShareIcon from '@mui/icons-material/Share';
+import Link from 'next/link';
 
 interface Props {
     product: Product;
@@ -30,7 +30,7 @@ const ProductCard = ({ product }: Props) => {
                     image={product.pictureUrl}
                     title={product.name}
                 />
-                <CardContent sx={{mb:'auto'}}>
+                <CardContent sx={{ mb: 'auto' }}>
                     <Typography gutterBottom variant="h6" component="div" color='secondary'>
                         {product.brand} - ${(product.price / 100).toFixed(2)}
                     </Typography>
@@ -46,32 +46,14 @@ const ProductCard = ({ product }: Props) => {
                         <AddShoppingCartIcon />
                     </IconButton>
                     <Button size="small">Learn More</Button>
+                    <Button size="small">
+                        <Link href={`/products/${product.id}`}>
+                            <a>View</a>
+                        </Link>
+                    </Button>
                 </CardActions>
             </Card>
-            {/* <ListItem key={product.id}>
-                <ListItemAvatar>
-                    <Avatar src={product.pictureUrl} alt={product.name} />
-                </ListItemAvatar>
-                <ListItemText
-                    primary={`${product.name} - ${product.price}$`}
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                sx={{ display: 'inline' }}
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                            >
-                                {product.brand}
-
-                            </Typography>
-                            {product.description}
-                        </React.Fragment>
-                    }
-                />
-
-
-            </ListItem> */}
+           
         </>
     )
 }

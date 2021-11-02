@@ -1,34 +1,13 @@
 import type { NextPage } from 'next'
-import React, { useEffect, useState } from 'react';
-import ProductList from '../components/features/catalog/ProductList';
-import Header from '../components/features/layout/Header';
-import { Container, CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, {  } from 'react';
+import Layout from '../components/features/layout/Layout';
 
 const Home: NextPage = () => {
-	const [darkMode, setDarkMode] = useState(false);
-	const paletteType = darkMode ? 'dark' : 'light';
-	const theme = createTheme({
-		palette: {
-			mode: paletteType,
-			background:{
-				default: paletteType === 'light' ? '#eaeaea' :'#121212'
-			}
-		}
-	})
-
-	const handleThemeChange = () => {
-		setDarkMode(!darkMode);
-	}
-
+	
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Header darkMode={darkMode} handleThemeChange={handleThemeChange}/>
-			<Container>
-				<ProductList />
-			</Container>
-		</ThemeProvider>
+		<Layout>
+			<h1>Index Page</h1>
+			</Layout>
 
 	)
 

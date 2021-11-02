@@ -1,0 +1,8 @@
+.nav-link{
+    color:white;
+    text-decoration: none;
+}
+.nav-link:hover{
+    color:rgb(162, 161, 161);
+    text-decoration: underline;
+}

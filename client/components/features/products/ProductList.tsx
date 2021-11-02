@@ -51,13 +51,12 @@ const ProductList = () => {
     )
 
     return (
-        <div>
-            <Grid container spacing={4}>
-                {renderProducts()}
-            </Grid>
-
+        <>
+		<Grid container spacing={4}>
+           {renderProducts()}
+		   </Grid>
             <Button onClick={addProduct}>Add Product</Button>
-        </div>
+        </>
     )
 }
 
