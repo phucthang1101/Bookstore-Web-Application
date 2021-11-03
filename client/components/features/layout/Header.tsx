@@ -56,7 +56,7 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
 
 
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>
-                        <IconButton size="large" sx={{ color: 'inherit' }}>
+                        <IconButton href='/basket' size="large" sx={{ color: 'inherit' }}>
                             <Badge badgeContent={4} color='secondary'>
                                 <ShoppingCart />
                             </Badge>

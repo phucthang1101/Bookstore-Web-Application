@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Product } from '../../models/product'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShareIcon from '@mui/icons-material/Share';
 import Link from 'next/link';
+import agent from '../../../utils/agent';
+import { LoadingButton } from '@mui/lab';
 
 interface Props {
     product: Product;
@@ -11,6 +13,14 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
+    const [loading, setLoading] = useState(false);
+    const handleAddItem = (productId: number) => {
+        setLoading(true);
+        agent.Basket.addItem(productId)
+            .catch(error => console.log(error))
+            .finally(() => setLoading(false));
+
+    }
     return (
         <>
             <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
@@ -42,9 +52,16 @@ const ProductCard = ({ product }: Props) => {
                     <IconButton aria-label="share">
                         <ShareIcon />
                     </IconButton>
-                    <IconButton aria-label="share">
+                    {/* <IconButton aria-label="share">
                         <AddShoppingCartIcon />
-                    </IconButton>
+                    </IconButton> */}
+                    <LoadingButton
+                        loading={loading}
+                        onClick={() => handleAddItem(product.id)}
+                        size='small'
+                    >
+                        Add to cart
+                    </LoadingButton>
                     <Button size="small">Learn More</Button>
                     <Button size="small">
                         <Link href={`/products/${product.id}`}>
@@ -53,7 +70,7 @@ const ProductCard = ({ product }: Props) => {
                     </Button>
                 </CardActions>
             </Card>
-           
+
         </>
     )
 }

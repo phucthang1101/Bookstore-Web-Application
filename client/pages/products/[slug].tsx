@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next'
 import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import Image from 'next/image'
 import { Box } from '@mui/system';
+import agent from '../../utils/agent';
 
 interface Props {
 	product: Product;
@@ -75,9 +76,17 @@ const SingleProduct = ({ product }: Props) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	// const res = await fetch(`http://localhost:5000/api/products/${context.params.slug}`);
 	// const data = await res.json()
-	const res = await fetch(`http://localhost:5000/api/products/${context?.params?.slug}`);
-	const product: Product = await res.json()
+	//const res = await fetch(`http://localhost:5000/api/products/${context?.params?.slug}`);
+	//console.log(context.params);
+	let id: number = parseInt(context?.params?.slug as string);
+	let res;
+	try {
+		res = await agent.productList.details(id);
+	} catch (error) {
+		console.log(error);
+	}
 
+	const product: Product = res;
 	return {
 		props: {
 			product,

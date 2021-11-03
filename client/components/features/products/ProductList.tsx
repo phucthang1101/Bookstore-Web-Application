@@ -2,21 +2,22 @@ import { Product } from '../../models/product'
 import { Button, Grid } from '@mui/material';
 import ProductCard from './ProductCard';
 import React, { useEffect, useState } from 'react';
+import agent from '../../../utils/agent';
 
 
 const ProductList = () => {
-    const [products, setProducts] = useState<Product[]>([]);
+	const [products, setProducts] = useState<Product[]>([]);
 
 	useEffect(() => {
 		// fetch('http://localhost:5000/api/products')
 		// 	.then(response => response.json())
 		// 	.then(data => setProducts(data))
-		// let test = fectchData();
-		// setProducts(test);
 
-		fectchData()
-			.then(response => response && response.json())
-			.then(data => setProducts(data));
+		agent.productList.list().then(products => setProducts(products))
+
+		// fectchData()
+		// 	.then(response => response && response.json())
+		// 	.then(data => setProducts(data));
 	}, [])
 
 	const fectchData = async () => {
@@ -41,23 +42,23 @@ const ProductList = () => {
 			pictureUrl: ''
 		}])
 	}
-    
-    const renderProducts = () => (
-        products.map((product: any) => (
-            <Grid item xs={3} key={product.id} style={{display: 'flex'}}>
-                <ProductCard product={product} />
-            </Grid>
-        ))
-    )
 
-    return (
-        <>
-		<Grid container spacing={4}>
-           {renderProducts()}
-		   </Grid>
-            <Button onClick={addProduct}>Add Product</Button>
-        </>
-    )
+	const renderProducts = () => (
+		products.map((product: any) => (
+			<Grid item xs={3} key={product.id} style={{ display: 'flex' }}>
+				<ProductCard product={product} />
+			</Grid>
+		))
+	)
+
+	return (
+		<>
+			<Grid container spacing={4}>
+				{renderProducts()}
+			</Grid>
+			<Button onClick={addProduct}>Add Product</Button>
+		</>
+	)
 }
 
 export default ProductList;
