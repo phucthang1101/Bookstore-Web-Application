@@ -6,6 +6,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import Link from 'next/link';
 import agent from '../../../utils/agent';
 import { LoadingButton } from '@mui/lab';
+import { useStoreContext } from '../../../context/StoreContext';
 
 interface Props {
     product: Product;
@@ -14,9 +15,12 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
     const [loading, setLoading] = useState(false);
+    const { setBasket } = useStoreContext();
+
     const handleAddItem = (productId: number) => {
         setLoading(true);
         agent.Basket.addItem(productId)
+            .then(basket => setBasket(basket))
             .catch(error => console.log(error))
             .finally(() => setLoading(false));
 

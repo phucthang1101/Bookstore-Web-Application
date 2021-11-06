@@ -6,6 +6,7 @@ import { ShoppingCart } from '@mui/icons-material';
 import styles from './Header.module.css';
 import { Box } from '@mui/system';
 import { useRouter } from "next/router";
+import { useStoreContext } from '../../../context/StoreContext';
 
 interface Props {
     darkMode: boolean;
@@ -14,11 +15,14 @@ interface Props {
 const Header = ({ darkMode, handleThemeChange }: Props) => {
     const router = useRouter();
 
+    const { basket } = useStoreContext();
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
+
     return (
         <>
             <AppBar position='static' sx={{ mb: 4 }}>
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link href="/">
                             <Typography variant='h6'>
                                 RE-STORE
@@ -36,7 +40,7 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
 
 
                     <List sx={{ display: 'flex' }}>
-                        
+
                         <ListItem sx={{ color: 'inherit', typography: 'h6' }}>
                             <Link href="/about">
                                 <a className={styles['nav-link']}>About</a>
@@ -55,9 +59,9 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
                     </List>
 
 
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton href='/basket' size="large" sx={{ color: 'inherit' }}>
-                            <Badge badgeContent={4} color='secondary'>
+                            <Badge badgeContent={itemCount} color='secondary'>
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>

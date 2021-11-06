@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import { Container, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 //import Footer from './footer/footer';
 import 'react-toastify/dist/ReactToastify.css';
+import { useStoreContext } from '../../../context/StoreContext';
+import { getCookie } from '../../../utils/cookies';
+import agent from '../../../utils/agent';
 
 
 const Layout = (props: any) => {
@@ -23,6 +26,22 @@ const Layout = (props: any) => {
 	const handleThemeChange = () => {
 		setDarkMode(!darkMode);
 	}
+
+	const [loading, setLoading] = useState(true);
+	const { setBasket } = useStoreContext();
+
+	useEffect(() => {
+		const buyerId = getCookie('buyerId');
+		if (buyerId) {
+			agent.Basket.get()
+				.then(basket => setBasket(basket))
+				.catch(error => console.log(error))
+				.finally(() => setLoading(false))
+		}
+		else {
+			setLoading(false)
+		}
+	}, [setBasket])
 
 	return (
 
