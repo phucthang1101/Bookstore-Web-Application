@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import { Container, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-//import Footer from './footer/footer';
 import 'react-toastify/dist/ReactToastify.css';
-import { useStoreContext } from '../../../context/StoreContext';
-import { getCookie } from '../../../utils/cookies';
+import { useAppDispatch } from "../../../redux/store";
 import agent from '../../../utils/agent';
-
+import { getCookie } from '../../../utils/cookies';
+import { setBasket } from '../basket/BasketSlice';
+import Header from './Header';
 
 const Layout = (props: any) => {
-	//  console.log('layout')
+
+	const dispatch = useAppDispatch();
+
+	const [loading, setLoading] = useState(true);
+
 	const [darkMode, setDarkMode] = useState(false);
 	const paletteType = darkMode ? 'dark' : 'light';
 	const theme = createTheme({
@@ -27,21 +30,18 @@ const Layout = (props: any) => {
 		setDarkMode(!darkMode);
 	}
 
-	const [loading, setLoading] = useState(true);
-	const { setBasket } = useStoreContext();
-
 	useEffect(() => {
 		const buyerId = getCookie('buyerId');
 		if (buyerId) {
 			agent.Basket.get()
-				.then(basket => setBasket(basket))
+				.then(basket => dispatch(setBasket(basket)))
 				.catch(error => console.log(error))
 				.finally(() => setLoading(false))
 		}
 		else {
 			setLoading(false)
 		}
-	}, [setBasket])
+	}, [dispatch])
 
 	return (
 

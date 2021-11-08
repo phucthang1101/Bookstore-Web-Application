@@ -5,17 +5,15 @@ import Link from 'next/link'
 import { ShoppingCart } from '@mui/icons-material';
 import styles from './Header.module.css';
 import { Box } from '@mui/system';
-import { useRouter } from "next/router";
-import { useStoreContext } from '../../../context/StoreContext';
+import { useAppSelector } from '../../../redux/store';
 
 interface Props {
     darkMode: boolean;
     handleThemeChange: () => void;
 }
 const Header = ({ darkMode, handleThemeChange }: Props) => {
-    const router = useRouter();
-
-    const { basket } = useStoreContext();
+    
+    const { basket } = useAppSelector(state => state.basket)
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
 
     return (

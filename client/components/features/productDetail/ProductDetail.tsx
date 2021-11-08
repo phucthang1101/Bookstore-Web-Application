@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Product } from '../../models/product';
-import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@mui/material';
-import Image from 'next/image';
-import { Box } from '@mui/system';
-import { useStoreContext } from '../../../context/StoreContext';
 import { LoadingButton } from '@mui/lab';
+import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import agent from '../../../utils/agent';
+import { Product } from '../../models/product';
+import { removeBasketItemAsync, setBasket, addBasketItemAsync } from '../basket/BasketSlice';
 
 interface Props {
     product: Product;
 }
 
 const ProductDetail = ({ product }: Props) => {
-    const { basket, setBasket, removeItem } = useStoreContext();
+    const { basket, status } = useAppSelector(state => state.basket);
+    const dispatch = useAppDispatch();
+    const {status: productStatus} = useAppSelector(state => state.productList);
+
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(0);
-    const [submitting, setSubmitting] = useState(false);
-    const item = basket?.items.find(i => i.productId === product?.id);
+    const item = basket?.items.find((i:any) => i.productId === product?.id);
 
     useEffect(() => {
         if (item) setQuantity(item.quantity);
@@ -29,19 +30,17 @@ const ProductDetail = ({ product }: Props) => {
     }
 
     const handleUpdateCard = () => {
-        setSubmitting(true);
         if (!item || quantity > item.quantity) {
+
             const updatedQuantity = item ? quantity - item.quantity : quantity;
-            agent.Basket.addItem(product?.id!, updatedQuantity)
-                .then(basket => setBasket(basket))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false));
+
+            dispatch(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
+
         } else {
+
             const updatedQuantity = item.quantity - quantity;
-            agent.Basket.removeItem(product?.id!, updatedQuantity)
-                .then(() => removeItem(product?.id!, updatedQuantity))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false));
+
+            dispatch(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
         }
     }
     return (
@@ -99,7 +98,7 @@ const ProductDetail = ({ product }: Props) => {
                     <Grid item xs={6}>
                         <LoadingButton
                             disabled={item?.quantity === quantity}
-                            loading={submitting}
+                            loading={status.includes('pending')}
                             onClick={handleUpdateCard}
                             sx={{ height: '55px' }}
                             color='primary'

@@ -4,37 +4,69 @@ import { Product } from '../../components/models/product';
 import { GetServerSideProps } from 'next';
 import agent from '../../utils/agent';
 import ProductDetail from '../../components/features/productDetail/ProductDetail';
+import { useAppSelector, wrapper } from '../../redux/store';
+import { fetchProductDetailAsync, productSelectors } from '../../components/features/products/ProductListSlice';
+import { useStore } from 'react-redux';
 
 interface Props {
 	product: Product;
+	id: number;
 
 }
 
-const SingleProduct = ({ product }: Props) => {
+const SingleProduct = ({ id }: Props) => {
+	//const SingleProduct = (props:any) => {
 
+	const product = useAppSelector(state => productSelectors.selectById(state, id));
+	console.log('State on render', { id }, { product });
 	return (
 		<Layout>
-			<ProductDetail product={product}/>
+			{product ? <ProductDetail product={product} /> : ''}
 		</Layout>
 	);
 };
 
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(store => async ({ params }) => {
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	let id: number = parseInt(context?.params?.slug as string);
-	let res;
-	try {
-		res = await agent.productList.details(id);
-	} catch (error) {
-		console.log(error);
-	}
+	let id: number = parseInt(params?.slug as string);
 
-	const product: Product = res;
+	await store.dispatch(fetchProductDetailAsync(id));
+
+
+
+	//const { productList } = store.getState();
+	//const productList = newState.productList.entities;
+
+	//const product = productList?.find((e:any) => e.id === id);
+	//const product = useAppSelector(state => productSelectors.selectById(state, id));
+
+	//console.log('State on server', productList, productList.entities);
+
 	return {
 		props: {
-			product,
+			id
 		},
-	}
-}
+	};
+
+
+
+	// let id: number = parseInt(params?.slug as string);
+	// let res;
+	// console.log('id: ', id)
+
+	// try {
+	// 	res = await agent.productList.details(id);
+	// } catch (error) {
+	// 	console.log(error);
+	// }
+
+	// const product: Product = res;
+	// return {
+	// 	props: {
+	// 		product,
+	// 	},
+	// }
+
+})
 
 export default SingleProduct;
