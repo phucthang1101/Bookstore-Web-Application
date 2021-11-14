@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../../../redux/store";
 import agent from '../../../utils/agent';
 import { getCookie } from '../../../utils/cookies';
-import { setBasket } from '../basket/BasketSlice';
+import { setBasket } from '../../features/basket/BasketSlice';
 import Header from './Header';
 
 const Layout = (props: any) => {

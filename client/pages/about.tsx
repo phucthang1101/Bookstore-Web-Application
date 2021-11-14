@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/features/layout/Layout';
+import Layout from '../components/common/layout/Layout';
 import { Alert, AlertTitle, Button, ButtonGroup, Container, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
 import agent from '../utils/agent';

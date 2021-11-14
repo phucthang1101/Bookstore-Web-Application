@@ -1,7 +1,7 @@
 import React from 'react'
 import CheckOutComponent from '../components/features/checkout/CheckOutComponent';
 
-const checkout = () => {
+const Checkout = () => {
     return (
         <>
             <CheckOutComponent />
@@ -9,4 +9,4 @@ const checkout = () => {
     )
 }
 
-export default checkout;
+export default Checkout;

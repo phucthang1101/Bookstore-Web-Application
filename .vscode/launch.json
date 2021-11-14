@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
         {
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
@@ -30,6 +31,34 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+        {
+            "name": "Next.js: debug server-side",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev"
+          },
+          {
+            "name": "Next.js: debug client-side",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "url": "http://localhost:3000"
+          },
+          {
+            "name": "Next.js: debug full stack",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev",
+            "console": "integratedTerminal",
+            "serverReadyAction": {
+              "pattern": "started server on .+, url: (https?://.+)",
+              "uriFormat": "%s",
+              "action": "debugWithChrome"
+            },
+            "program": "${workspaceFolder}/client/node_modules/next/dist/bin/next",
+            "runtimeExecutable": "${workspaceFolder}/client/node_modules/.bin/next",
+            "cwd": "${workspaceFolder}/client",
+
         }
     ]
 }

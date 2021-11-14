@@ -1,11 +1,11 @@
 import React from 'react'
 import BasketComponent from '../components/features/basket/BasketComponent';
 import { BasketSummary } from '../components/features/basket/BasketSummary';
-import Layout from '../components/features/layout/Layout';
+import Layout from '../components/common/layout/Layout';
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import Link from 'next/link';
 
-const basket = () => {
+const Basket = () => {
     return (
         <Layout>
             <BasketComponent />
@@ -29,4 +29,4 @@ const basket = () => {
     )
 }
 
-export default basket;
+export default Basket;

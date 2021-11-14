@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/features/layout/Layout';
+import Layout from '../../components/common/layout/Layout';
 import { Product } from '../../components/models/product';
 import { GetServerSideProps } from 'next';
 import agent from '../../utils/agent';

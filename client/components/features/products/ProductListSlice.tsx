@@ -1,20 +1,53 @@
 import { createAsyncThunk, createEntityAdapter, createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../redux/store';
 import agent from '../../../utils/agent';
-import { Product } from '../../models/product';
+import { Product, ProductParams } from '../../models/product';
 import { HYDRATE } from 'next-redux-wrapper';
+import { MetaData } from '../../models/pagination';
 
-const productsAdapter = createEntityAdapter<Product>({
-    selectId: (product) => product.id
-});
+
+interface ProductListState {
+    productsLoaded: boolean;
+    filtersLoaded: boolean;
+    status: string;
+    brands: string[];
+    types: string[];
+    productParams: ProductParams;
+    metaData: MetaData | null;
+}
+
+
+const productsAdapter = createEntityAdapter<Product>();
 
 //const hydrate = createAction(HYDRATE)
+const getAxiosParams = (productParams: ProductParams) => {
+    const params = new URLSearchParams();
+    params.append('pageNumber', productParams.pageNumber.toString());
+    params.append('pageSize', productParams.pageSize.toString());
+    params.append('orderBy', productParams.orderBy);
+    if (productParams.searchTerm)
+        params.append('searchTerm', productParams.searchTerm);
+    if (productParams.brands.length > 0)
+        params.append('brands', productParams.brands.toString());
+    if (productParams.types.length > 0)
+        params.append('types', productParams.types.toString());
 
-export const fetchProductListAsync = createAsyncThunk<Product[]>(
+    return params;
+}
+
+export const fetchProductListAsync = createAsyncThunk<Product[], void, { state: RootState }>(
     'productList/fetchProductListAsync',
     async (_, thunkAPI) => {
+        const params = getAxiosParams(thunkAPI.getState().productList.productParams);
         try {
-            return await agent.productList.list();
+           // debugger;
+            const response = await agent.productList.list(params);
+            //debugger;
+           // console.log('response after list(): ', response)
+            thunkAPI.dispatch(setMetaData(response.metaData));
+            return response.items;
+
+
         } catch (error: any) {
             return thunkAPI.rejectWithValue({ error: error.data })
         }
@@ -22,9 +55,9 @@ export const fetchProductListAsync = createAsyncThunk<Product[]>(
 )
 
 export const fetchProductDetailAsync = createAsyncThunk<Product, number>(
-    'catalog/fetchProductDetailAsync',
+    'productList/fetchProductDetailAsync',
     async (productId, thunkAPI) => {
-        console.log('fetchProductDetailAsync id: ', productId)
+       // console.log('fetchProductDetailAsync id: ', productId)
         try {
             return await agent.productList.details(productId);
         } catch (error: any) {
@@ -32,25 +65,61 @@ export const fetchProductDetailAsync = createAsyncThunk<Product, number>(
         }
     }
 )
+
+export const fetchFilters = createAsyncThunk(
+    'productList/fetchFilters',
+    async (_, thunkAPI) => {
+        try {
+            return agent.productList.fetchFilters();
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({ error: error.data })
+        }
+    }
+)
+
+const initParams = () => {
+    return {
+        pageNumber: 1,
+        pageSize: 6,
+        orderBy: 'name',
+        brands: [],
+        types: []
+    }
+}
 export const productListSlice = createSlice({
     name: 'productList',
-    initialState: productsAdapter.getInitialState({
+    initialState: productsAdapter.getInitialState<ProductListState>({
         productsLoaded: false,
-        status: 'idle'
+        filtersLoaded: false,
+        status: 'idle',
+        brands: [],
+        types: [],
+        productParams: initParams(),
+        metaData: null
     }),
-    reducers: {},
+    reducers: {
+        setProductParams: (state, action) => {
+            state.productsLoaded = false;
+            state.productParams = {...state.productParams, ...action.payload, pageNumber: 1};
+        },
+        setPageNumber: (state, action) => {
+            state.productsLoaded = false;
+            state.productParams = {...state.productParams, ...action.payload};
+        },
+        setMetaData: (state, action) => {
+            //console.log('action: setmetadata', action.payload)
+            state.metaData = action.payload;
+        },
+        resetProductParams: (state) => {
+            state.productParams = initParams();
+        }
+    },
     extraReducers: (builder => {
-        // builder.addCase(HYDRATE as any, (state, action: PayloadAction<RootState>) => {
-        //     // productsAdapter.setAll(state, action.payload.productList.entities);
-        //     state.status = 'HydratePedingFetchProducts'
-        //     state.productsLoaded = true;
-        // });
-
         builder.addCase(fetchProductListAsync.pending, state => {
             state.status = 'pendingFetchProducts'
         });
         builder.addCase(fetchProductListAsync.fulfilled, (state, action) => {
-             console.log('fetchProductListAsync.fulfilled')
+            // console.log('fetchProductListAsync.fulfilled')
             productsAdapter.setAll(state, action.payload)
             state.status = 'pendingFetchProducts'
             state.productsLoaded = true;
@@ -66,20 +135,35 @@ export const productListSlice = createSlice({
         builder.addCase(fetchProductDetailAsync.fulfilled, (state, action) => {
             productsAdapter.upsertOne(state, action.payload);
             state.status = 'idle';
-             console.log('done buildercase: ')
+           // console.log('done buildercase: ')
         });
         builder.addCase(fetchProductDetailAsync.rejected, (state, action) => {
             //console.log(action);
             state.status = 'idle';
         });
+
+        builder.addCase(fetchFilters.pending, state => {
+            state.status = 'pendingfetchFilters'
+        })
+        builder.addCase(fetchFilters.fulfilled, (state, action) => {
+            state.brands = action.payload.brands;
+            state.types = action.payload.types;
+            state.filtersLoaded = true;
+            state.status = 'idle';
+        })
+        builder.addCase(fetchFilters.rejected, (state, action) => {
+           // console.log(action.payload);
+            state.status = 'idle';
+        });
         builder.addMatcher(
             (action) => action.type === HYDRATE,
             (state, action: PayloadAction<RootState>) => {
-                console.log('HYDRATE...');
+               // console.log('HYDRATE...');
                 return ({
-                ...state,
-                ...action.payload.productList,
-            })},
+                    ...state,
+                    ...action.payload.productList,
+                })
+            },
         );
 
     })
@@ -125,5 +209,5 @@ export const selectProductList = selectors.selectAll;
 
 export const productSelectors = productsAdapter.getSelectors((state: RootState) => state.productList);
 
-
+export const { setProductParams, resetProductParams, setMetaData, setPageNumber } = productListSlice.actions;
 

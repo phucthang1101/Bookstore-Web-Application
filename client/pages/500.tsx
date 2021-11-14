@@ -1,7 +1,7 @@
 import { Button, Container, Divider, Paper, Typography } from '@mui/material';
 import React from 'react'
 import { useRouter } from 'next/router'
-import Layout from '../components/features/layout/Layout';
+import Layout from '../components/common/layout/Layout';
 
 const ServerError = () => {
     const router = useRouter()
