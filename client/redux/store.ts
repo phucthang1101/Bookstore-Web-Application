@@ -3,23 +3,25 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { basketSlice } from "../components/features/basket/BasketSlice";
 import { productListSlice } from "../components/features/products/ProductListSlice";
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+import { accountSlice } from "../components/features/account/accountSlice";
 
 
-const rootReducer = (state: any, action: any) => {
-    if (action.type === HYDRATE) {
-        console.log('state: ', state, 'action: ', action);
-        const nextState = {
-            ...state,
-            ...action.payload
-        }
-        return nextState
-    } else {
-        return {
-            basket: basketSlice.reducer,
-            productList: productListSlice.reducer
-        }
-    }
-}
+// const rootReducer = (state: any, action: any) => {
+//     if (action.type === HYDRATE) {
+//         console.log('state: ', state, 'action: ', action);
+//         const nextState = {
+//             ...state,
+//             ...action.payload
+//         }
+//         return nextState
+//     } else {
+//         return {
+//             basket: basketSlice.reducer,
+//             productList: productListSlice.reducer,
+//             account: accountSlice.reducer
+//         }
+//     }
+// }
 
 // export type RootState = StateFromReducersMapObject<typeof rootReducer>
 
@@ -48,7 +50,8 @@ const rootReducer = (state: any, action: any) => {
 export const store = configureStore({
     reducer: {
         basket: basketSlice.reducer,
-        productList: productListSlice.reducer
+        productList: productListSlice.reducer,
+        account: accountSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,12 +1,11 @@
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../../../redux/store";
-import agent from '../../../utils/agent';
-import { getCookie } from '../../../utils/cookies';
-import { setBasket } from '../../features/basket/BasketSlice';
+import { fetchCurrentUser } from '../../features/account/accountSlice';
+import { fetchBasketAsync } from '../../features/basket/BasketSlice';
 import Header from './Header';
 
 const Layout = (props: any) => {
@@ -30,22 +29,21 @@ const Layout = (props: any) => {
 		setDarkMode(!darkMode);
 	}
 
+	const initApp = useCallback(async () => {
+		try {
+			await dispatch(fetchCurrentUser());
+			await dispatch(fetchBasketAsync());
+		} catch (error) {
+			console.log(error);
+		}
+	},[dispatch])
+
 	useEffect(() => {
-		const buyerId = getCookie('buyerId');
-		if (buyerId) {
-			agent.Basket.get()
-				.then(basket => dispatch(setBasket(basket)))
-				.catch(error => console.log(error))
-				.finally(() => setLoading(false))
-		}
-		else {
-			setLoading(false)
-		}
-	}, [dispatch])
+		initApp().then(() => setLoading(false));
+	  }, [initApp])
+
 
 	return (
-
-
 		<ThemeProvider theme={theme}>
 			<ToastContainer
 				position="bottom-right"

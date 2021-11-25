@@ -6,15 +6,17 @@ import { ShoppingCart } from '@mui/icons-material';
 import styles from './Header.module.css';
 import { Box } from '@mui/system';
 import { useAppSelector } from '../../../redux/store';
+import UserMenu from './UserMenu';
 
 interface Props {
     darkMode: boolean;
     handleThemeChange: () => void;
 }
 const Header = ({ darkMode, handleThemeChange }: Props) => {
-    
+
     const { basket } = useAppSelector(state => state.basket)
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
+    const { user } = useAppSelector(state => state.account)
 
     return (
         <>
@@ -63,20 +65,24 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
+                        {user ? (
+                            <UserMenu />
+                        ) : (
+                            <List sx={{ display: 'flex' }}>
+                                <ListItem sx={{ color: 'text.secondary', typography: 'h6' }}>
+                                    <Link href="/login">
+                                        <a className={styles['nav-link']}>Login</a>
+                                    </Link>
+                                </ListItem>
+                                <ListItem sx={{ color: 'text.secondary', typography: 'h6' }}>
+                                    <Link href="/register">
+                                        <a className={styles['nav-link']}>Register</a>
+                                    </Link>
+                                </ListItem>
 
-                        <List sx={{ display: 'flex' }}>
-                            <ListItem sx={{ color: 'text.secondary', typography: 'h6' }}>
-                                <Link href="/">
-                                    <a className={styles['nav-link']}>Login</a>
-                                </Link>
-                            </ListItem>
-                            <ListItem sx={{ color: 'text.secondary', typography: 'h6' }}>
-                                <Link href="/about">
-                                    <a className={styles['nav-link']}>Register</a>
-                                </Link>
-                            </ListItem>
+                            </List>
+                        )}
 
-                        </List>
                     </Box>
 
                 </Toolbar>

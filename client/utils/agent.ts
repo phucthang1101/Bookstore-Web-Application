@@ -1,9 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-//import { error } from 'console';
 import { toast } from 'react-toastify';
-import { useRouter, Router } from 'next/router'
-import { request } from 'http';
 import { PaginatedResponse } from '../components/models/pagination';
+import { store } from '../redux/store';
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
@@ -12,20 +10,27 @@ axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
+axios.interceptors.request.use(config => {
+    const token = store.getState().account.user?.token;
+    // @ts-ignore: Object is possibly 'null'.
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+})
+
 axios.interceptors.response.use(async response => {
     //debugger;
-   // await sleep();
+    // await sleep();
     const pagination = response.headers['pagination'];
-   
-     let test2 = response.data.constructor.name === "Array";
 
-  //  console.log(`before ${i}: `, response.data)
+    let test2 = response.data.constructor.name === "Array";
+
+    //  console.log(`before ${i}: `, response.data)
     if (pagination && test2) {
         response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
 
     }
     //console.log(`after ${i}: `, response.data);
-    
+
     return response;
     //     const pagination = response.headers['pagination'];
     //     console.log('before: ',response.data)
@@ -97,10 +102,16 @@ const TestErrors = {
     getValidationError: () => requests.get('buggy/validation-error'),
 }
 
+const Account = {
+    login: (values: any) => requests.post('account/login', values),
+    register: (values: any) => requests.post('account/register', values),
+    currentUser: () => requests.get('account/currentUser'),
+}
 const agent = {
     productList,
     TestErrors,
-    Basket
+    Basket,
+    Account
 }
 
 export default agent;
