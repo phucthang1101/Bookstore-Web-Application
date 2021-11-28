@@ -3,11 +3,18 @@ import React from 'react'
 import { useAppSelector } from "../../../redux/store";
 import { currencyFormat } from "../../../utils/cookies";
 
-export const BasketSummary = () => {
+interface Props{
+    subtotal?: number
+}
+export const BasketSummary = ({subtotal}:Props) => {
 
     const { basket } = useAppSelector(state => state.basket);
      
-    const subtotal = basket?.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) ?? 0;
+    if(subtotal === undefined)
+    {
+        subtotal = basket?.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) ?? 0;
+    }
+    
     const deliveryFee = subtotal > 10000 ? 0 : 500;
     const TAX_RATE = 0.13;
     const invoiceTaxes = TAX_RATE * subtotal;

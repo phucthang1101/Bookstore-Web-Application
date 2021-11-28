@@ -1,14 +1,25 @@
 import React from 'react'
-import BasketComponent from '../components/features/basket/BasketComponent';
+import BasketTable from '../components/features/basket/BasketTable';
 import { BasketSummary } from '../components/features/basket/BasketSummary';
 import Layout from '../components/common/layout/Layout';
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import Link from 'next/link';
+import { useAppSelector } from '../redux/store';
 
 const Basket = () => {
+    const { basket } = useAppSelector(state => state.basket);
+
+
     return (
         <Layout>
-            <BasketComponent />
+            {basket ?
+                (
+                    <BasketTable items={basket.items} />
+                ) :
+                (
+                    <Typography variant='h3'>Your basket is empty</Typography>
+                )
+            }
 
             <Grid container>
                 <Grid item xs={6} />

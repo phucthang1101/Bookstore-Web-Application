@@ -15,9 +15,9 @@ interface Props {
 const Header = ({ darkMode, handleThemeChange }: Props) => {
 
     const { basket } = useAppSelector(state => state.basket)
-    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
-    const { user } = useAppSelector(state => state.account)
 
+    const { user } = useAppSelector(state => state.account)
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
     return (
         <>
             <AppBar position='static' sx={{ mb: 4 }}>

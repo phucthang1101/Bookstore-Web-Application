@@ -65,6 +65,9 @@ axios.interceptors.response.use(async response => {
         case 401:
             toast.error(data.title);
             break;
+        case 403:
+            toast.error('You are not allowed to do that!');
+            break;
         case 500:
             window.location.href = "/server-error";
             break;
@@ -106,12 +109,20 @@ const Account = {
     login: (values: any) => requests.post('account/login', values),
     register: (values: any) => requests.post('account/register', values),
     currentUser: () => requests.get('account/currentUser'),
+    fetchAddress: () => requests.get('account/saveAddress')
+}
+
+const Orders = {
+    list: () => requests.get('orders'),
+    fetch: (id: number) => requests.get(`orders/${id}`),
+    create: (values: any) => requests.post('orders', values)
 }
 const agent = {
     productList,
     TestErrors,
     Basket,
-    Account
+    Account,
+    Orders
 }
 
 export default agent;

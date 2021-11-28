@@ -25,7 +25,10 @@ export const fetchBasketAsync = createAsyncThunk<Basket>(
     },
     {
         condition: () => {
-            if(!getCookie('buyerId')) return false;
+            if (!getCookie('buyerId')) {
+                console.log('getCookie empty: ', getCookie('buyerId'));
+                return false;
+            }
         }
     }
 )
@@ -58,7 +61,7 @@ export const basketSlice = createSlice({
         setBasket: (state, action) => {
             state.basket = action.payload
         },
-        clearBasket: (state) =>{
+        clearBasket: (state) => {
             state.basket = null;
         }
     },

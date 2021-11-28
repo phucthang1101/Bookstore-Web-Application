@@ -3,6 +3,7 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { signOut } from '../../features/account/accountSlice';
 import { clearBasket } from '../../features/basket/BasketSlice';
+import Link from 'next/link'
 
 const UserMenu = () => {
     const dispatch = useAppDispatch();
@@ -31,7 +32,11 @@ const UserMenu = () => {
                 TransitionComponent={Fade}
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem>
+                    <Link href="/order">
+                        <a>My Order</a>
+                    </Link>
+                </MenuItem>
                 <MenuItem onClick={() => {
                     dispatch(signOut());
                     dispatch(clearBasket());
