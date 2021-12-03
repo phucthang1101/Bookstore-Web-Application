@@ -13,7 +13,7 @@ const Layout = (props: any) => {
 	const dispatch = useAppDispatch();
 
 	const [loading, setLoading] = useState(true);
-	
+
 	const initApp = useCallback(async () => {
 		try {
 			await dispatch(fetchCurrentUser());

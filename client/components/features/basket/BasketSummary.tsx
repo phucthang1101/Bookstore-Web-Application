@@ -39,7 +39,7 @@ export const BasketSummary = ({subtotal}:Props) => {
                         </TableRow>
                         <TableRow>
                             <TableCell colSpan={2}>Total</TableCell>
-                            <TableCell align="right">{currencyFormat(subtotal + deliveryFee)}</TableCell>
+                            <TableCell align="right">{currencyFormat(subtotal + deliveryFee + invoiceTaxes)}</TableCell>
                         </TableRow>
 
 

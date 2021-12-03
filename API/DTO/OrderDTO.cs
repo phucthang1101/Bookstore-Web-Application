@@ -13,7 +13,7 @@ namespace API.DTO
         public List<OrderItemDTO> OrderItems { get; set; }
         public long SubTotal { get; set; }
         public long DeliveryFee { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
         public long Total { get; set; }
     }
 }

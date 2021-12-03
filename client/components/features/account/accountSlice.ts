@@ -72,7 +72,7 @@ export const accountSlice = createSlice({
             window.location.href = "/";
         })
         builder.addMatcher(isAnyOf(signInUser.fulfilled, fetchCurrentUser.fulfilled), (state, action) => {
-            console.log("fulfilled: ", action.payload)
+            //console.log("fulfilled: ", action.payload)
             state.user = action.payload;
 
         })

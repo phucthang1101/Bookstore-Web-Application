@@ -23,14 +23,14 @@ export const fetchBasketAsync = createAsyncThunk<Basket>(
             return thunkAPI.rejectWithValue({ error: error.data });
         }
     },
-    {
-        condition: () => {
-            if (!getCookie('buyerId')) {
-                console.log('getCookie empty: ', getCookie('buyerId'));
-                return false;
-            }
-        }
-    }
+    // {
+    //     condition: () => {
+    //         if (!getCookie('buyerId')) {
+    //             console.log('getCookie empty: ', getCookie('buyerId'));
+    //             return false;
+    //         }
+    //     }
+    // }
 )
 
 export const addBasketItemAsync = createAsyncThunk<Basket, { productId: number, quantity?: number }>(
