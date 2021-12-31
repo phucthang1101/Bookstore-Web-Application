@@ -1,9 +1,9 @@
 import { createAsyncThunk, createEntityAdapter, createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../../redux/store';
-import agent from '../../../utils/agent';
-import { Product, ProductParams } from '../../models/product';
+import { RootState } from '../store';
+import agent from '../../utils/agent';
+import { Product, ProductParams } from '../../components/models/product';
 import { HYDRATE } from 'next-redux-wrapper';
-import { MetaData } from '../../models/pagination';
+import { MetaData } from '../../components/models/pagination';
 
 
 interface ProductListState {
@@ -112,6 +112,14 @@ export const productListSlice = createSlice({
         },
         resetProductParams: (state) => {
             state.productParams = initParams();
+        },
+        setProduct: (state, action) => {
+            productsAdapter.upsertOne(state, action.payload);
+            state.productsLoaded = false;
+        },
+        removeProduct: (state,action) => {
+            productsAdapter.removeOne(state, action.payload);
+            state.productsLoaded = false;
         }
     },
     extraReducers: (builder => {
@@ -209,5 +217,5 @@ export const selectProductList = selectors.selectAll;
 
 export const productSelectors = productsAdapter.getSelectors((state: RootState) => state.productList);
 
-export const { setProductParams, resetProductParams, setMetaData, setPageNumber } = productListSlice.actions;
+export const { setProductParams, resetProductParams, setMetaData, setPageNumber, setProduct, removeProduct } = productListSlice.actions;
 

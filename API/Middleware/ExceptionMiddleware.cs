@@ -23,9 +23,17 @@ namespace API.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
+            context.Response.OnStarting((Func<Task>)(() =>
+            {
+                context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+                context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version, X-File-Name");
+                context.Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,PUT,PATCH,DELETE,OPTIONS");
+                return Task.CompletedTask;
+            }));
             try
             {
-                 await _next(context);
+               await _next(context);
             }
             catch (Exception ex)
             {

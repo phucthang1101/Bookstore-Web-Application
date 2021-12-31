@@ -1,13 +1,35 @@
 import type { NextPage } from 'next'
-import React, {  } from 'react';
+import React, { } from 'react';
 import Layout from '../components/common/layout/Layout';
+import MainSlider from "../components/features/index/mainSlider/MainSlider";
+import { Box, Typography } from "@mui/material";
+import CategorySlider from '../components/features/index/categorySlider/CategorySlider';
+import RecommendedProductList from '../components/features/index/recommendedProductList/RecommendedProductList';
+import Advertisement from '../components/features/index/advertisement/Advertisement';
+import Testimonials from '../components/features/index/testimonials/Testimonials';
+import TopCategories from '../components/features/index/topCategories/TopCategories';
+
 
 const Home: NextPage = () => {
-	
+	const settings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1
+	};
 	return (
 		<Layout>
-			<h1>Index Page</h1>
-			</Layout>
+			<>
+				<MainSlider />
+				<CategorySlider />
+				<RecommendedProductList />
+				<Advertisement />
+				<Testimonials />
+				<TopCategories />
+
+			</>
+		</Layout>
 
 	)
 

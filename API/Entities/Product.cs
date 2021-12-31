@@ -2,7 +2,7 @@ namespace API.Entities
 {
     public class Product
     {
-        public int Id{ get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -17,6 +17,7 @@ namespace API.Entities
         public string Brand { get; set; }
 
         public int QuantityInStock { get; set; }
-        
+
+        public string PublicId { get; set; }
     }
 }

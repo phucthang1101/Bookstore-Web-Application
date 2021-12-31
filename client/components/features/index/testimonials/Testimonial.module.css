@@ -1,0 +1,107 @@
+.partner_img{
+    width:70%;
+    height:auto;
+    filter: grayscale(100%);
+    transition: all 0.4s;
+}
+.partner_img:hover{
+    filter: grayscale(0%);
+}
+.partner_link
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* display: block; */
+    padding: 30px;
+    margin: auto;
+    display: flex;
+
+}
+.testimonials_area{
+    position: relative;
+}
+.testimonials_area_bg{
+    z-index: 1;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('https://novine-react.envytheme.com/_next/static/media/testimonials-bg2.c5a5e0d20c94d134dbf3b7e253b954a7.jpg');
+    background-attachment: fixed;
+}
+.testimonials_area:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #222;
+    opacity: .7;
+}
+.single_testimonial{
+    text-align: center;
+    margin: 0 auto;
+    max-width: 745px;
+}
+.client_img_wrapper {
+    margin-bottom: 30px;
+}
+.client_img{
+    width: 65px!important;
+    border-radius: 50%;
+    height: 65px;
+    display: inline-block!important; 
+    max-width: 100%;
+    -webkit-transform-style: preserve-3d;
+}
+.testimonial_text{
+    color: #fff;
+    margin-bottom: 0;
+    font-style: italic;
+    line-height: 1.9;
+}
+.client_info{
+    margin-top: 25px;
+}
+.client_info h4 {
+    font-size: 18px;
+    color: #fff;
+}
+.client_info span {
+    display: block;
+    color: #fff;
+    font-size: 13px;
+    opacity: .95;
+}
+.partner_swiper :global .swiper-scrollbar{
+    height: 0px;
+}
+.testimonials_swiper_wrapper{
+    position: relative;
+}
+.testimonials_swiper_slide{
+    padding: 90px 0 120px;
+}
+.testimonials_swiper_wrapper :global .swiper-pagination{
+    bottom: 40px;
+} 
+.testimonials_swiper_wrapper :global .swiper-pagination-bullet{
+    outline: none;
+    border: 1px solid #fff;
+    background: 0 0;
+    width: 10px;
+    height: 10px;
+    -webkit-backface-visibility: visible;
+    margin: 0 3px;
+    transition: .5s;
+    border-radius: 50%;
+    opacity: 1;
+}
+.testimonials_swiper_wrapper :global .swiper-pagination-bullet-active{
+    background-color: #fff;
+}
+.testimonials_swiper_wrapper :global .swiper-pagination-bullet:hover{
+    background-color: #fff;
+}

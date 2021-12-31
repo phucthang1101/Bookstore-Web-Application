@@ -4,7 +4,8 @@ import ProductCard from './ProductCard';
 import React, { useEffect, useState } from 'react';
 import agent from '../../../utils/agent';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { fetchProductListAsync, selectProductList, productSelectors } from './ProductListSlice';
+import { fetchProductListAsync, selectProductList, productSelectors } from '../../../redux/slices/ProductListSlice';
+import useProducts from '../../hooks/useProducts';
 
 interface Props {
 	products: Product[];
@@ -41,12 +42,8 @@ const ProductList = () => {
 	// 	}])
 	// }
 
-
-	const products = useAppSelector(productSelectors.selectAll);
-
 	const dispatch = useAppDispatch();
-
-	const { productsLoaded, filtersLoaded, brands, types } = useAppSelector(state => state.productList);
+	const { productList, productsLoaded, filtersLoaded, brands, types, metaData } = useProducts();
 
 	//console.log({ products })
 	useEffect(() => {
@@ -61,7 +58,7 @@ const ProductList = () => {
 
 	const renderProducts = () => {
 		//console.log('products in renderProducts: ', products[0])
-		return products.map((product: any) => (
+		return productList.map((product: any) => (
 			<Grid item xs={4} key={product.id} style={{ display: 'flex' }}>
 				<ProductCard product={product} />
 			</Grid>

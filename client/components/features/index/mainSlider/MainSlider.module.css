@@ -1,0 +1,262 @@
+/* slider */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgb(226, 107, 10);
+}
+.swiper-button-prev,
+.swiper-button-next {
+  transition: 0.3s ease-in-out;
+  width: 35px !important;
+  height: 35px !important;
+  background-color: white;
+  border-radius: 50%;
+}
+.swiper_banner .swiper-button-next {
+  right: -100px;
+}
+.swiper_banner .swiper-button-prev {
+  left: -100px;
+}
+.main-slider:hover > .swiper_banner .swiper-button-prev {
+  left: 20px;
+}
+.main-slider:hover > .swiper_banner .swiper-button-next {
+  right: 20px;
+}
+.swiper_banner .swiper-button-prev::after,
+.swiper_banner .swiper-button-next::after {
+  font-size: 15px;
+  color: black;
+}
+.swiper_banner .swiper-slide .image_banner {
+  position: relative;
+  height: 80vh;
+  min-height: 400px;
+  align-self: center;
+}
+.swiper_banner .swiper-slide .image_banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  object-position: center center;
+  animation: 0s ease 0s 1 normal none running none !important;
+}
+
+.swiper_wrapper {
+  position: relative;
+  transition: all 0.4s ease 0s;
+}
+.slide_content_wrapper {
+  height: 750px;
+  display: flex;
+  background-color: rgb(43, 33, 33);
+}
+.swiper_wrapper .swiper_slide_active .introduce_center > :nth-child(1) {
+  animation-delay: 0.5s;
+}
+.swiper_wrapper .swiper_slide_active .introduce_center > :nth-child(2) {
+  animation-delay: 0.8s;
+}
+.swiper_wrapper .swiper_slide_active .introduce_center > :nth-child(3) {
+  animation-delay: 1.1s;
+}
+.swiper_wrapper .swiper_slide_active .introduce_center > :nth-child(4) {
+  animation-delay: 1.4s;
+}
+
+.swiper_wrapper .swiper_slide_active .introduce_center > * {
+  animation-name: slideIn;
+}
+
+.swiper_wrapper .introduce_center > * {
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+  animation-name: slideOut;
+}
+.swiper_wrapper :global .swiper-button-prev {
+  outline: 0px;
+  right: auto;
+  left: -20px;
+}
+.swiper_wrapper :global .swiper-button-next {
+  outline: 0px;
+  left: auto;
+  right: -20px;
+}
+.swiper_wrapper :global .swiper-button-next,
+.swiper_wrapper :global .swiper-button-prev {
+  top: 50%;
+  z-index: 9;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  line-height: 40px;
+  position: absolute;
+  visibility: hidden;
+  text-align: center;
+  transform: translateY(-50%);
+  color: rgb(33, 33, 33);
+  transition: all 0.4s ease 0s;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgb(0 0 0 / 6%) 0px 3px 25.5px 4.5px;
+}
+.swiper_wrapper :global .swiper-button-next:hover,
+.swiper_wrapper :global .swiper-button-prev:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 112, 4);
+}
+.swiper_wrapper :global .swiper-button-prev::after {
+  margin-right: 3px;
+}
+.swiper_wrapper :global .swiper-button-next::after,
+.swiper_wrapper :global .swiper-button-prev::after {
+  font-size: 14px;
+}
+.swiper_wrapper:hover :global .swiper-button-prev {
+  left: 10px;
+}
+.swiper_wrapper:hover :global .swiper-button-prev,
+.swiper_wrapper:hover :global .swiper-button-next {
+  visibility: visible;
+}
+.swiper_wrapper:hover :global .swiper-button-next {
+  right: 10px;
+}
+.swiper_wrapper:hover :global .swiper-button-prev,
+.swiper_wrapper:hover :global .swiper-button-next {
+  visibility: visible;
+}
+.swiper_wrapper :global .swiper-button-disabled {
+  opacity: 0.1;
+}
+.swiper_wrapper :global .swiper-pagination-bullet:hover, 
+.swiper_wrapper :global .swiper-pagination-bullet-active {
+  background-color: rgb(255, 112, 4) !important;
+  border-color: rgb(255, 112, 4);
+}
+.swiper_wrapper :global .swiper-pagination-bullet {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 1;
+  border: 1px solid rgb(0, 0, 0);
+  margin: 0px 5px;
+  box-shadow: none;
+  transition: all 0.4s ease 0s;
+}
+.introduce_center {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none !important;
+  text-align: center;
+  align-self: center !important;
+  /* line-height: 2rem; */
+}
+.slide_product_subtitle {
+  color: white;
+  margin-bottom: 20px;
+}
+.slide_product_name {
+  font-size: 80px;
+  color: white;
+  margin-bottom: 30px;
+}
+.slide_product_desc {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 30px;
+}
+.slide_product_link {
+  /* padding: 13px 30px;
+  text-decoration: none;
+  background-color: rgb(226, 107, 10);
+  color: white;
+  font-size: 15px; */
+  display: inline-block;
+  text-align: center;
+  padding: 17px 36px;
+  border-radius: 0px;
+  line-height: 1;
+  border: 0px;
+  transition: all 0.4s ease 0s;
+  font-size: 16px;
+  font-family: Raleway;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 112, 4);
+}
+.slide_product_link:hover {
+  color: white;
+  background-color: rgb(233, 137, 59);
+}
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, 100%, 0px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0px, -100%, 0px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .swiper_banner .swiper-slide .image_banner {
+    height: 55vw;
+  }
+  .slide_product_subtitle {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 4vw;
+  }
+  .slide_product_name {
+    font-size: 8vw;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .slide_product_desc {
+    font-size: 3vw;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .slide_product_link {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .slide_product_subtitle {
+    font-size: 20px;
+  }
+  .slide_product_name {
+    font-size: 35px;
+  }
+  .slide_product_desc {
+    display: none;
+  }
+  .slide_product_link {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}

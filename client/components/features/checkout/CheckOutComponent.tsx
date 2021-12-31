@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from "./CheckoutValidation";
 import agent from "../../../utils/agent";
-import { clearBasket } from "../basket/BasketSlice";
+import { clearBasket } from "../../../redux/slices/BasketSlice";
 import { StripeElementType } from '@stripe/stripe-js';
 import { CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 

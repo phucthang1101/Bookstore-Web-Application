@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import agent from '../../../utils/agent';
 import { Product } from '../../models/product';
-import { setBasket, addBasketItemAsync } from '../basket/BasketSlice';
+import { setBasket, addBasketItemAsync } from '../../../redux/slices/BasketSlice';
 import {useSelector, useStore} from 'react-redux';
 
 interface Props {

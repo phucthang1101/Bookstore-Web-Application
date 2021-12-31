@@ -1,8 +1,8 @@
 import { Button, Menu, Fade, MenuItem } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { signOut } from '../../features/account/accountSlice';
-import { clearBasket } from '../../features/basket/BasketSlice';
+import { signOut } from '../../../redux/slices/AccountSlice';
+import { clearBasket } from '../../../redux/slices/BasketSlice';
 import Link from 'next/link'
 
 const UserMenu = () => {

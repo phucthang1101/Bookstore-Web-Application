@@ -3,7 +3,7 @@ import React from 'react';
 import ProductList from '../../components/features/products/ProductList';
 import Layout from '../../components/common/layout/Layout';
 import { useAppDispatch, useAppSelector, wrapper } from '../../redux/store';
-import { fetchProductListAsync, fetchFilters, setProductParams, setPageNumber } from '../../components/features/products/ProductListSlice';
+import { fetchProductListAsync, fetchFilters, setProductParams, setPageNumber } from '../../redux/slices/ProductListSlice';
 import { GetStaticProps } from 'next';
 import ProductSearch from '../../components/features/products/ProductSearch';
 import RadioButtonGroup from '../../components/common/buttons/RadioButtonGroup';

@@ -4,9 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch } from "../../../redux/store";
-import { fetchCurrentUser } from '../../features/account/accountSlice';
-import { fetchBasketAsync } from '../../features/basket/BasketSlice';
+import { fetchCurrentUser } from '../../../redux/slices/AccountSlice';
+import { fetchBasketAsync } from '../../../redux/slices/BasketSlice';
 import Header from './Header';
+import Footer from './footer/Footer';
 
 const Layout = (props: any) => {
 
@@ -21,13 +22,13 @@ const Layout = (props: any) => {
 		} catch (error) {
 			console.log(error);
 		}
-	},[dispatch])
+	}, [dispatch])
 
 	useEffect(() => {
 		initApp().then(() => setLoading(false));
-	  }, [initApp])
-	  
-	
+	}, [initApp])
+
+
 	const [darkMode, setDarkMode] = useState(false);
 	const paletteType = darkMode ? 'dark' : 'light';
 	const theme = createTheme({
@@ -43,26 +44,29 @@ const Layout = (props: any) => {
 		setDarkMode(!darkMode);
 	}
 
-	
+
 
 	return (
-		<ThemeProvider theme={theme}>
-			<ToastContainer
-				position="bottom-right"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme='colored'
-			/>
-			<CssBaseline />
-			<Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
-			{props.children}
-		</ThemeProvider>
+
+			<ThemeProvider theme={theme}>
+				<ToastContainer
+					position="bottom-right"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme='colored'
+				/>
+				<CssBaseline />
+				<Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
+				{props.children}
+				<Footer/>
+			</ThemeProvider>
+		
 
 
 	);

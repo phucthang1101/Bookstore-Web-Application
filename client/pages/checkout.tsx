@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from '@stripe/stripe-js';
 import agent from '../utils/agent';
 import { useAppDispatch } from '../redux/store';
-import { setBasket } from '../components/features/basket/BasketSlice';
+import { setBasket } from '../redux/slices/BasketSlice';
 import Layout from '../components/common/layout/Layout';
 
 const Checkout = () => {

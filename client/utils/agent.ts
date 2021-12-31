@@ -2,11 +2,14 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { PaginatedResponse } from '../components/models/pagination';
 import { store } from '../redux/store';
+import { API } from '../config';
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+//const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
-axios.defaults.baseURL = 'http://localhost:5000/api/';
+axios.defaults.baseURL = API;
 axios.defaults.withCredentials = true;
+//axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*' // for all requests
+//axios.defaults.headers.common['Access-Control-Allow-Credentials'] = 'true' // for all requests
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -24,7 +27,7 @@ axios.interceptors.response.use(async response => {
 
     let test2 = response.data.constructor.name === "Array";
 
-    //  console.log(`before ${i}: `, response.data)
+      console.log(`response: `, response.data)
     if (pagination && test2) {
         response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
 
@@ -83,7 +86,30 @@ const requests = {
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
+    postForm: (url:string, data: FormData) => axios.post(url,data,{
+        headers:{'Content-type': 'multipart/form-data'}
+    }).then(responseBody),
+    putForm: (url:string, data: FormData) => axios.put(url,data,{
+        headers:{'Content-type': 'multipart/form-data'}
+    }).then(responseBody),
 }
+
+const createFormData = (item: any) => {
+    let formData = new FormData();
+    for (const key in item)
+    {
+        formData.append(key, item[key]);
+    }
+    return formData;
+}
+
+const Admin = {
+    createProduct: (product:any) => requests.postForm('products', createFormData(product)),
+    updateProduct: (product:any) => requests.putForm('products', createFormData(product)),
+    deleteProduct: (id:number) => requests.delete(`products/${id}`)
+}
+
+
 
 const productList = {
     list: (params: URLSearchParams) => requests.get('products', params),
@@ -119,7 +145,7 @@ const Orders = {
 }
 
 const Payments = {
-    createPaymentIntent: () => requests.post('payments',{})
+    createPaymentIntent: () => requests.post('payments', {})
 
 }
 const agent = {
@@ -128,7 +154,8 @@ const agent = {
     Basket,
     Account,
     Orders,
-    Payments
+    Payments,
+    Admin
 }
 
 export default agent;

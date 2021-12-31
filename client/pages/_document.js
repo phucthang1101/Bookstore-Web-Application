@@ -14,10 +14,34 @@ class MyDocument extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
+          <link
+            rel='stylesheet'
+            type='text/css'
+            href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css'
+          />
+
+          <link
+            rel='stylesheet'
+            type='text/css'
+            href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css'
+          />
+          <link
+            rel='stylesheet'
+            href='https://unpkg.com/swiper@7/swiper-bundle.min.css'
+          />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
         </Head>
         <body>
           <Main />
           <NextScript />
+          <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+          <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js'
+            integrity='sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=='
+            crossorigin='anonymous'
+            referrerpolicy='no-referrer'
+          ></script>
         </body>
       </Html>
     );

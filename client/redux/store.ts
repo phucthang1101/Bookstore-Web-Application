@@ -1,9 +1,9 @@
 import { configureStore, StateFromReducersMapObject, DeepPartial } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { basketSlice } from "../components/features/basket/BasketSlice";
-import { productListSlice } from "../components/features/products/ProductListSlice";
+import { basketSlice } from "./slices/BasketSlice";
+import { productListSlice } from "./slices/ProductListSlice";
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-import { accountSlice } from "../components/features/account/accountSlice";
+import { accountSlice } from './slices/AccountSlice';
 
 
 // const rootReducer = (state: any, action: any) => {

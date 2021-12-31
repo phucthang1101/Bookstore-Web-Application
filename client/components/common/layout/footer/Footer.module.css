@@ -1,0 +1,211 @@
+.footer_section {
+  margin-top: 60px;
+}
+.footer_row ul{
+    list-style: none;
+    padding:0;
+}
+@media only screen and (min-width: 768px) {
+  .footer_section {
+    margin-top: 100px;
+  }
+}
+.footer_wrapper {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-color: rgb(47, 51, 58);
+  color: rgb(255, 255, 255);
+}
+
+@media only screen and (min-width: 576px) {
+  .footer_wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .footer_wrapper {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.footer_container {
+    width: 100%;
+    padding-right: calc(15px);
+    padding-left: calc(15px);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media only screen and (min-width: 576px) {
+  .footer_container {
+    max-width: 540px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .footer_container {
+    max-width: 720px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .footer_container {
+    max-width: 960px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .footer_container {
+    max-width: 1200px;
+  }
+}
+
+.footer_row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-15px);
+  margin-left: calc(-15px);
+}
+.footer_col {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: calc(15px);
+  padding-left: calc(15px);
+}
+
+.footer_about {
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 992px) {
+  .footer_about {
+    margin-bottom: 0px;
+  }
+}
+.footer_about_title {
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  margin-bottom: 15px;
+  letter-spacing: 1.2px;
+  color: rgb(255, 255, 255);
+}
+
+.about_text {
+  font-size: 14px;
+  max-width: 290px;
+  line-height: 24px;
+}
+.social_media_links_list {
+  margin-top: 15px;
+  list-style: none;
+  padding:0;
+  display:flex;
+}
+.social_media_links_item {
+}
+.social_media_links_item :global :not(:last-child) {
+  margin-right: 5px;
+}
+.social_media_links_item a {
+  color: rgb(231, 231, 231);
+  line-height: 38px;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  background-color: transparent;
+  display: block;
+  border-radius: 50%;
+  transition: all 0.4s ease 0s;
+  text-decoration: none;
+}
+
+.social_media_links_item :global svg:not(:root) {
+  overflow: hidden;
+}
+.social_media_links_item a:hover {
+  background-color: rgb(255, 112, 4);
+}
+.footer_widget_list {
+  margin-bottom: 0px;
+}
+
+.footer_widget:not(:last-child) {
+  margin-bottom: 8px;
+}
+.footer_widget_list li a {
+  font-size: 14px;
+  line-height: 24px;
+  padding: 0px;
+  color: rgb(255, 255, 255);
+  transition: all 0.4s ease 0s;
+}
+.footer_widget_list li a:hover {
+  padding-left: 6px;
+  color: rgb(255, 112, 4);
+}
+.news_letter_form_wrapper {
+  position: relative;
+  margin-top: 20px;
+}
+.news_letter_form {
+}
+.news_letter_lable {
+  display: inline-block;
+  font-family: inherit;
+  touch-action: manipulation;
+  line-height: inherit;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0px, 0px, 0px, 0px px);
+  border: 0px;
+}
+.news_letter_input{
+    display: inline-block;
+    vertical-align: top;
+    line-height: 50px;
+    height: 50px;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    width: 100%;
+    text-transform: capitalize;
+    background: transparent;
+    border: 1px solid rgb(67, 71, 78);
+    border-radius: 0px;
+    text-align: left;
+    box-shadow: none;
+    padding-left: 20px;
+    padding-right: 10px;
+    transition: all 0.4s ease 0s;
+}
+.news_letter_button{
+    font-size: 13px;
+    font-weight: 600;
+    border: 0px;
+    margin-top: 20px;
+    display: inline-block;
+    text-align: center;
+    padding: 17px 36px;
+    border-radius: 0px;
+    line-height: 1;
+    transition: all 0.4s ease 0s;
+    font-family: Raleway;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 112, 4);
+    cursor: pointer;
+    box-shadow: none;
+    outline: 0px;
+}
+.news_letter_button svg{
+    font-size: 16px;
+    margin-right: 3px;
+    vertical-align: text-top;
+    overflow: hidden;
+}

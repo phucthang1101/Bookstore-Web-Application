@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next';
 import agent from '../../utils/agent';
 import ProductDetail from '../../components/features/productDetail/ProductDetail';
 import { useAppSelector, wrapper } from '../../redux/store';
-import { fetchProductDetailAsync, productSelectors } from '../../components/features/products/ProductListSlice';
+import { fetchProductDetailAsync, productSelectors } from '../../redux/slices/ProductListSlice';
 import { useStore } from 'react-redux';
 
 interface Props {

@@ -13,7 +13,7 @@ import { useState } from 'react';
 import agent from '../../../utils/agent';
 import { useAppDispatch } from '../../../redux/store';
 import { useRouter } from 'next/router';
-import { signInUser } from './accountSlice';
+import { signInUser } from '../../../redux/slices/AccountSlice';
 
 
 export default function Login() {
