@@ -31,7 +31,8 @@ namespace API
         {
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
             {
-                builder.WithOrigins("https://ecommerce-store-frontend.vercel.app").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); ;
+                builder.WithOrigins("https://ecommerce-store-frontend.vercel.app").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); 
             }));
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);

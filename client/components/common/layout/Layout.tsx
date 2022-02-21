@@ -44,29 +44,31 @@ const Layout = (props: any) => {
 		setDarkMode(!darkMode);
 	}
 
-
-
 	return (
 
-			<ThemeProvider theme={theme}>
-				<ToastContainer
-					position="bottom-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme='colored'
-				/>
-				<CssBaseline />
-				<Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
-				{props.children}
-				<Footer/>
-			</ThemeProvider>
-		
+		<ThemeProvider theme={theme}>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme='colored'
+			/>
+			<CssBaseline />
+			<Header
+				darkMode={darkMode}
+				handleThemeChange={handleThemeChange}
+			/>
+
+			{props.children}
+			<Footer />
+		</ThemeProvider>
+
 
 
 	);

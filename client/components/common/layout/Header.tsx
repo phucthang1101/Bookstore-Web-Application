@@ -7,20 +7,64 @@ import styles from './Header.module.css';
 import { Box } from '@mui/system';
 import { useAppSelector } from '../../../redux/store';
 import UserMenu from './UserMenu';
+import Navbar from './navbar/Navbar';
 
 interface Props {
     darkMode: boolean;
     handleThemeChange: () => void;
 }
-const Header = ({ darkMode, handleThemeChange }: Props) => {
+//interface Ref = HTMLDivElement;
 
+const Header = ({ darkMode, handleThemeChange }: Props) => {
     const { basket } = useAppSelector(state => state.basket)
 
     const { user } = useAppSelector(state => state.account)
-    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0)
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
+
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", () => handleScroll);
+        };
+    });
+
+    const [isSticky, setSticky] = React.useState(false);
+
+    //const stickyRef = React.useRef(null);
+    const handleScroll = () => {
+        window.pageYOffset > 300
+        ? setSticky(true)
+        : setSticky(false);
+    };
+
+    const debounce = (func: Function, wait = 20, immediate = true) => {
+        let timeOut: any;
+        return function (this: any) {
+            let context = this,
+                args = [].slice.call(arguments);
+            const later = () => {
+                timeOut = null;
+                if (!immediate) func.apply(context, args);
+            };
+            const callNow = immediate && !timeOut;
+            clearTimeout(timeOut);
+            timeOut = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+
+
+
     return (
         <>
-            <AppBar position='static' sx={{ mb: 4 }}>
+            <Navbar />
+            <AppBar
+                className={`${isSticky ? styles.navbar_sticky: styles.navbar_unstick}`}
+                sx={{ mb: 4 }}
+            >
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link href="/">

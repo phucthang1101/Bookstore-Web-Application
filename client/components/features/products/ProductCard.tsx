@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import agent from '../../../utils/agent';
 import { Product } from '../../models/product';
 import { setBasket, addBasketItemAsync } from '../../../redux/slices/BasketSlice';
-import {useSelector, useStore} from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
+import styles from './ProductCard.module.css';
 
 interface Props {
     product: Product;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-   
+
     const { status } = useAppSelector(state => state.basket)
     const dispatch = useAppDispatch();
 
@@ -30,7 +31,41 @@ const ProductCard = ({ product }: Props) => {
     // }
     return (
         <>
-            <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+            <div className={styles.product_cards_wrapper}>
+                <article className={styles.product_card}>
+                    <header className={styles.product_card_thumb}>
+                        <a href="#">
+                            <img src={product.pictureUrl} />
+                        </a>
+                    </header>
+                    <div className={styles.product_card_date}>
+                        <span className={styles.product_card_date_day}>11</span>
+                        <br />
+                        <span className={styles.product_card_date_month}>Jan</span>
+                    </div>
+                    <div className={styles.product_card__body}>
+                        <div className={styles.product_card__category}>
+                            <a href="#">pet</a>
+                        </div>
+                        <h2 className={styles.product_card__title}>
+                            <a href="#">
+                                {product.name}
+                            </a>
+                        </h2>
+                        <div className={styles.product_card__subtitle}>
+                            an ice cream sundae party！
+                        </div>
+                        <p className={styles.product_card__description}>
+                            {product.description}
+                        </p>
+                    </div>
+                    <footer className={styles.product_card__footer}>
+                        <span className={`${styles.icon} ion-clock`}></span> 10 mins ago
+                        <span className={`${styles.icon}  ion-chatbox`}></span><a href="#"> 145 comments</a>
+                    </footer>
+                </article>
+            </div>
+            {/* <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: 'secondary.main' }}>
@@ -59,9 +94,7 @@ const ProductCard = ({ product }: Props) => {
                     <IconButton aria-label="share">
                         <ShareIcon />
                     </IconButton>
-                    {/* <IconButton aria-label="share">
-                        <AddShoppingCartIcon />
-                    </IconButton> */}
+                    
                     <LoadingButton
                         loading={status.includes('pendingAddItem' + product.id)}
                         onClick={() => dispatch(addBasketItemAsync({ productId: product.id }))}
@@ -76,7 +109,7 @@ const ProductCard = ({ product }: Props) => {
                         </Link>
                     </Button>
                 </CardActions>
-            </Card>
+            </Card> */}
 
         </>
     )

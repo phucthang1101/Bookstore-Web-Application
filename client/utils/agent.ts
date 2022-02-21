@@ -27,7 +27,7 @@ axios.interceptors.response.use(async response => {
 
     let test2 = response.data.constructor.name === "Array";
 
-      console.log(`response: `, response.data)
+    //  console.log(`response: `, response.data)
     if (pagination && test2) {
         response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
 
